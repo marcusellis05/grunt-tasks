@@ -1,0 +1,16 @@
+{
+  "name"        : "grunt-tasks",
+  "description" : "Searches a specified folder for files containing Grunt task definitions.",
+  "version"     : "0.0.2",
+  "private"     : true,
+
+  "files": [
+    "grunt-tasks.js"
+  ],
+  "main": "grunt-tasks",
+
+  "dependencies": {
+      "globule"           : "0.2.*"
+    , "load-grunt-tasks"  : "0.4.*"
+  }
+}
