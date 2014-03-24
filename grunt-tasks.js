@@ -1,48 +1,18 @@
 "use strict";
 
-var loadGruntTasks = require('load-grunt-tasks')
-  , globule = require('globule')
-  , path = require('path');
-
-/*
-
-  gruntTasks(grunt, {
-      config:   <string of path to file>   - OR - <object literal of config values>
-    , tasks:    <globbing pattern for files>
-    , aliases:  <string of path to file>   - OR - <object literal of aliases>
-  });
-  
-
-  ### Task Configuration
-  
+var globule = require('globule')
+  , path = require('path')
+  , _ = require('lodash');
 
 
-  ### Task Aliases
-  For aliases, you can pass an object literal where the key is the name to be used for 
-      the task alias and the value is an array of task names.
-
-      Example: 
-
-        aliases: {
-          'css' : ['concat:css', 'less', 'autoprefixer', 'cssmin'],
-          'js'  : ['jshint', 'concat:js', 'uglify']
-        }
-
-  Optionally, you can specify the path to a `.js` file that exports an object literal.
-
-      Example: 
-
-        aliases: 'grunt-tasks/aliases.js'
-
-*/
 
 var arrayify = function(el) {
   return Array.isArray(el) ? el : [el];
 };
 
 
-var createPattern = function(options){
-  var pattern = []
+var createGlob = function(options){
+  var glob = []
     , tasks = arrayify(options.tasks)
     , exclude = arrayify(options.exclude)
     , config = typeof options.config === 'string' ? '!' + options.config : null
@@ -52,16 +22,16 @@ var createPattern = function(options){
     exclude[i] = '!' + ex;
   });
 
-  pattern = pattern.concat(tasks, exclude);
+  glob = glob.concat(tasks, exclude);
 
-  if (config && pattern.indexOf(config) === -1){
-    pattern.push(config);
+  if (config && glob.indexOf(config) === -1){
+    glob.push(config);
   }
-  if (aliases && pattern.indexOf(aliases) === -1){
-    pattern.push(aliases);
+  if (aliases && glob.indexOf(aliases) === -1){
+    glob.push(aliases);
   }
 
-  return pattern;
+  return glob;
 };
 
 
@@ -74,34 +44,41 @@ var configureVars = function(config){
 };
 
 
-var configureTasks = function(config, pattern){
+var configureTasks = function(config, glob){
   var files = globule.find({
-          src: pattern
+          src: glob
         , srcBase: process.cwd()
       });
 
   files.forEach(function(file, i){
     var filepath = path.join(process.cwd(), file)
-      , def = require(filepath);
+      , defs = require(filepath);
 
-    for (var key in def){
-      if (def.hasOwnProperty(key)){
-        var val = def[key];
+    _.forOwn(defs, function(def, key){
         if (config[key] === undefined){
-          config[key] = val;
+          config[key] = def;
         } else {
-          for (var k in val){
-            if (val.hasOwnProperty(k)){
-              config[key][k] = val[k];
-            }
-          }
+          _.forOwn(def, function(val, k){
+            config[key][k] = val;
+          });
         }
-      }
-    }
+    });
   });
 
   return config;
 };
+
+
+var loadGruntTasks = function(grunt, options){
+  var lgt = require('load-grunt-tasks');
+
+  if (!options.pattern || options.pattern.length === 0){
+    options.pattern = ['grunt-*']
+  }
+  options.pattern.push('!grunt-tasks');
+  
+  lgt(grunt, options);
+}
 
 
 var registerAliases = function(grunt, aliases){
@@ -110,35 +87,34 @@ var registerAliases = function(grunt, aliases){
     aliases = require(aliases);
   }
 
-  for (var key in aliases){
-    if (aliases.hasOwnProperty(key)){
-      grunt.registerTask(key, aliases[key]);
-    }
-  }
+  _.forOwn(aliases, function(value, key){
+    grunt.registerTask(key, value);
+  });
 };
 
 
 module.exports = function(grunt, opts){
   var options = {}
     , config = {}
-    , pattern = []
+    , glob = []
     , defaults = {
           config: {}
         , tasks: ['grunt-tasks/*.js']
         , exclude: []
-        , aliases: []
+        , aliases: {}
+        , lgtOptions: {}
       };
 
   options = _.assign({}, defaults, opts);
 
-  pattern = createPattern(options);
+  glob = createGlob(options);
 
   config = configureVars(options.config);
-  config = configureTasks(config, pattern);
+  config = configureTasks(config, glob);
 
   grunt.initConfig(config);
 
-  loadGruntTasks(grunt);
+  loadGruntTasks(grunt, options.lgtOptions);
 
   registerAliases(grunt, options.aliases);
 };

@@ -1,7 +1,7 @@
 {
   "name"        : "grunt-tasks",
   "description" : "Searches a specified folder for files containing Grunt task definitions.",
-  "version"     : "0.0.2",
+  "version"     : "0.1.0",
   "private"     : true,
 
   "files": [
@@ -12,5 +12,6 @@
   "dependencies": {
       "globule"           : "0.2.*"
     , "load-grunt-tasks"  : "0.4.*"
+    , "lodash"            : "2.4.*"
   }
 }
