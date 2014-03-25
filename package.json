@@ -1,7 +1,28 @@
 {
   "name"        : "grunt-tasks",
   "description" : "Searches a specified folder for files containing Grunt task definitions.",
-  "version"     : "0.1.0",
+  "version"     : "0.1.1",
+
+  "author": {
+    "name": "Marcus Ellis",
+    "url": "http://www.marcusellis.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/marcusellis05/grunt-tasks.git"
+  },
+  "bugs": {
+    "url": "http://github.com/marcusellis05/grunt-tasks/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
 
   "files": [
     "grunt-tasks.js"
