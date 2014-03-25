@@ -2,7 +2,6 @@
   "name"        : "grunt-tasks",
   "description" : "Searches a specified folder for files containing Grunt task definitions.",
   "version"     : "0.1.0",
-  "private"     : true,
 
   "files": [
     "grunt-tasks.js"

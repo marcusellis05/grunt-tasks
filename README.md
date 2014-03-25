@@ -14,13 +14,9 @@ This can lead to rather lengthy Gruntfiles. The 'grunt-tasks' module allows to t
 
 ## Installation
 
-Install with CNPR:
+Install with npm:
 
-    $ cnpr install --save-dev grunt-tasks
-
-Or install with npm:
-
-    $ npm install --save-dev http://crt-dev-linux.devid.local:9009/install/grunt-tasks
+    $ npm install --save-dev grunt-tasks
 
 
 ## Usage
