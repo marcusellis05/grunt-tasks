@@ -73,12 +73,12 @@ var loadGruntTasks = function(grunt, options){
   var lgt = require('load-grunt-tasks');
 
   if (!options.pattern || options.pattern.length === 0){
-    options.pattern = ['grunt-*']
+    options.pattern = ['grunt-*'];
   }
   options.pattern.push('!grunt-tasks');
   
   lgt(grunt, options);
-}
+};
 
 
 var registerAliases = function(grunt, aliases){
@@ -118,4 +118,3 @@ module.exports = function(grunt, opts){
 
   registerAliases(grunt, options.aliases);
 };
-
