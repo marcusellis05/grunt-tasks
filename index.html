@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Grunt-tasks by marcusellis05</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Grunt-tasks</h1>
+          <h2>Enables a more modular approach to configuring Grunt. Search a specified folder for files containing Grunt task definitions.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/marcusellis05/grunt-tasks/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/marcusellis05/grunt-tasks/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/marcusellis05/grunt-tasks" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="grunt-tasks" class="anchor" href="#grunt-tasks"><span class="octicon octicon-link"></span></a>Grunt Tasks</h1>
+
+<p><em>No more monolithic Gruntfile.</em> </p>
+
+<p>Gruntfiles typically have 4 sections:</p>
+
+<ol>
+<li>Define some variables to be interpolated into configuration later on.</li>
+<li>Configure some Grunt tasks.</li>
+<li>Load Grunt task modules. Example: <code>grunt.loadNpmTasks('grunt-contrib-watch');</code>
+</li>
+<li>Register some task aliases. Example: <code>grunt.registerTask('js', ['jshint', 'concat', 'uglify']);</code>
+</li>
+</ol><p>This can lead to rather lengthy Gruntfiles. The 'grunt-tasks' module allows to to break-up your Gruntfile into multiple modules organized any way you would like. It loads files containing Grunt task definitions via <a href="https://www.npmjs.org/package/globule">globbing</a> patterns (#2). Variables (#1) and aliases (#4) can be set as object literals or can be specified as paths to .js files that contain those settings. It also uses the <a href="https://www.npmjs.org/package/load-grunt-tasks">load-grunt-tasks</a> module to automatically find and load npm Grunt modules (#3).</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Install with npm:</p>
+
+<pre><code>$ npm install --save-dev grunt-tasks
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>First, let's assume we have a file structure that looks like this:</p>
+
+<ul>
+<li>grunt-stuff/
+
+<ul>
+<li>config.js</li>
+<li>dev.js</li>
+<li>scripts.js</li>
+<li>styles.js</li>
+</ul>
+</li>
+<li>lib/</li>
+<li>public/</li>
+<li>gruntfile.js</li>
+<li>package.json</li>
+</ul><p>Now, our Gruntfile should be fairly simple. We require in 'grunt-tasks' and then in our exported function, we call 'grunt-tasks' with 2 parameters: 1) the 'grunt' object and 2) our options object.  Example:</p>
+
+<pre><code>var gruntTasks = require('grunt-tasks');
+
+module.exports = function(grunt) {
+  gruntTasks(grunt, {
+      tasks: 'grunt-stuff/*.js'
+    , config: 'grunt-stuff/config.js'
+    , aliases: {
+          'js'       : ['concat:scripts', 'concat:cruxjs', 'uglify']
+        , 'css'      : ['less', 'concat:styles', 'cssmin']
+        , 'build'    : ['handlebars', 'css', 'js']
+        , 'base'     : ['jshint', 'handlebars', 'less']
+        , 'default'  : ['base', 'watch']
+      }
+  });
+};
+</code></pre>
+
+<p>Take a look at the <code>example</code> folder of this package for a more detailed implementation example.</p>
+
+<h3>
+<a name="property-merging" class="anchor" href="#property-merging"><span class="octicon octicon-link"></span></a>Property Merging</h3>
+
+<p>It's important to note that 'grunt-tasks' does a 2-level-deep merge of properties found in the task definition files. This means you can have a 'concat:css' task defined in one file and a 'concat:js' task in another. However, the sub-task name (ie, 'css' or 'js' in the previous example) must be unique, or one will overwrite the other.</p>
+
+<p>Your config option (whether it's an object literal or a filepath) will be loaded before the tasks. Any matching properties in the task definition files will overwrite your configuration properties.</p>
+
+<h2>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<h3>
+<a name="tasks" class="anchor" href="#tasks"><span class="octicon octicon-link"></span></a>tasks</h3>
+
+<p>Type: String | Array</p>
+
+<p>Default: 'grunt-tasks/*.js' </p>
+
+<p>The 'tasks' option should be a <a href="https://www.npmjs.org/package/globule">globbing</a> pattern or a list of globbing patterns that map to your list of task definition modules.</p>
+
+<h3>
+<a name="config" class="anchor" href="#config"><span class="octicon octicon-link"></span></a>config</h3>
+
+<p>Type: String | Object</p>
+
+<p>Default: {}</p>
+
+<p>Grunt allows you to set some config properties that are not necessarily task definitions. You can use these values in your task defintions as interpolated values using the <code>&lt;%= some.prop %&gt;</code> syntax. Use the 'config' option to configure those properties. Or you can specify a file path to a .js file that exports an object literal with the same properties.</p>
+
+<h3>
+<a name="aliases" class="anchor" href="#aliases"><span class="octicon octicon-link"></span></a>aliases</h3>
+
+<p>Type: String | Object</p>
+
+<p>Default: {}</p>
+
+<p>For aliases, you can pass an object literal where the key is the name to be used for the task alias and the value is an array of task names. Or you can specify the path to a file that exports a similarly formed object.</p>
+
+<h3>
+<a name="exclude" class="anchor" href="#exclude"><span class="octicon octicon-link"></span></a>exclude</h3>
+
+<p>Type: String | Array</p>
+
+<p>Default: [] </p>
+
+<p>The <a href="https://www.npmjs.org/package/globule">globbing</a> pattern(s) specifed for excludes will be excluded from your Grunt configuration. If you specify filepaths for the 'config' and/or 'aliases' options, those files will be automatically excluded; you don't need to list them here.</p>
+
+<h3>
+<a name="lgtoptions" class="anchor" href="#lgtoptions"><span class="octicon octicon-link"></span></a>lgtOptions</h3>
+
+<p>Type: Object</p>
+
+<p>Default: { pattern: ['grunt-*'] }</p>
+
+<p>See the <a href="https://www.npmjs.org/package/load-grunt-tasks">load-grunt-tasks</a> documentation for configuration options.</p>
+        </section>
+
+        <footer>
+          Grunt-tasks is maintained by <a href="https://github.com/marcusellis05">marcusellis05</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
