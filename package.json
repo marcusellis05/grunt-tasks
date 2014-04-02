@@ -1,7 +1,7 @@
 {
   "name"        : "grunt-tasks",
   "description" : "Enables a more modular approach to configuring Grunt. Search a specified folder for files containing Grunt task definitions.",
-  "version"     : "0.1.2",
+  "version"     : "0.1.3",
 
   "author": {
     "name": "Marcus Ellis",
@@ -30,28 +30,24 @@
   "main": "grunt-tasks",
 
   "dependencies": {
-      "globule"           : "0.2.*"
-    , "load-grunt-tasks"  : "0.4.*"
-    , "lodash"            : "2.4.*"
+    "globule": "0.2.*",
+    "load-grunt-tasks": "0.4.*",
+    "lodash": "2.4.*"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt": "~0.4.4"
   },
-  "peerDependencies": {
-    "grunt": "~0.4.4"
-  },
   
   "keywords": [
-      "gruntplugin"
-    , "gruntfile"
-    , "grunt"
-    , "tasks"
-    , "modular"
-    , "load-grunt-tasks"
-    , "load"
-    , "glob"
+    "gruntfile",
+    "grunt",
+    "tasks",
+    "modular",
+    "load-grunt-tasks",
+    "load",
+    "glob"
   ]
 
 }
