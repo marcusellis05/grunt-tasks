@@ -1,8 +1,7 @@
 {
-  "name"        : "grunt-tasks",
-  "description" : "Enables a more modular approach to configuring Grunt. Search a specified folder for files containing Grunt task definitions.",
-  "version"     : "0.1.4",
-
+  "name": "grunt-tasks",
+  "description": "Enables a more modular approach to configuring Grunt. Search a specified folder for files containing Grunt task definitions.",
+  "version": "1.0.0",
   "author": {
     "name": "Marcus Ellis",
     "url": "http://www.marcusellis.com/"
@@ -23,31 +22,29 @@
   "engines": {
     "node": ">= 0.8.0"
   },
-
   "files": [
     "grunt-tasks.js"
   ],
   "main": "grunt-tasks",
-
   "dependencies": {
     "globule": "0.2.*",
     "load-grunt-tasks": "0.4.*",
-    "lodash": "2.4.*"
+    "lodash": "2.4.*",
+    "time-grunt": "^1.0.0"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt": "~0.4.4"
   },
-  
   "keywords": [
     "gruntfile",
     "grunt",
     "tasks",
     "modular",
     "load-grunt-tasks",
+    "time-grunt",
     "load",
     "glob"
   ]
-
 }

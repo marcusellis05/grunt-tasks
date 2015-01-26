@@ -9,7 +9,7 @@ Gruntfiles typically have 4 sections:
   3. Load Grunt task modules. Example: `grunt.loadNpmTasks('grunt-contrib-watch');`
   4. Register some task aliases. Example: `grunt.registerTask('js', ['jshint', 'concat', 'uglify']);`
 
-This can lead to rather lengthy Gruntfiles. The 'grunt-tasks' module allows to to break-up your Gruntfile into multiple modules organized any way you would like. It loads files containing Grunt task definitions via [globbing][glob] patterns (#2). Variables (#1) and aliases (#4) can be set as object literals or can be specified as paths to .js files that contain those settings. It also uses the [load-grunt-tasks][lgt] module to automatically find and load npm Grunt modules (#3).
+This can lead to rather lengthy Gruntfiles. The 'grunt-tasks' module allows to to break-up your Gruntfile into multiple modules organized any way you would like. It loads files containing Grunt task definitions via [globbing][glob] patterns (#2). Variables (#1) and aliases (#4) can be set as object literals or can be specified as paths to .js files that contain those settings. It also uses the [load-grunt-tasks][lgt] module to automatically find and load npm Grunt modules (#3), and uses the [time-grunt][tg] module to report on how long each task is taking to run.
 
 
 ## Installation
@@ -112,6 +112,7 @@ See the [load-grunt-tasks][lgt] documentation for configuration options.
 
 
 [lgt]: https://www.npmjs.org/package/load-grunt-tasks
+[tg]: https://www.npmjs.com/package/time-grunt
 [glob]: https://www.npmjs.org/package/globule
 
 

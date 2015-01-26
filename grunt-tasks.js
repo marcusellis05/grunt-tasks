@@ -69,6 +69,12 @@ var configureTasks = function(config, glob){
 };
 
 
+var timeGruntTasks = function(grunt, options){
+  var time = require('time-grunt');
+  time(grunt);
+};
+
+
 var loadGruntTasks = function(grunt, options){
   var lgt = require('load-grunt-tasks');
 
@@ -114,6 +120,7 @@ module.exports = function(grunt, opts){
 
   grunt.initConfig(config);
 
+  timeGruntTasks(grunt);
   loadGruntTasks(grunt, options.lgtOptions);
 
   registerAliases(grunt, options.aliases);
