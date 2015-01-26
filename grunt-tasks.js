@@ -79,7 +79,7 @@ var loadGruntTasks = function(grunt, options){
   var lgt = require('load-grunt-tasks');
 
   if (!options.pattern || options.pattern.length === 0){
-    options.pattern = ['grunt-*'];
+    options.pattern = ['grunt-*', '@*/grunt-*'];
   }
   options.pattern.push('!grunt-tasks');
   

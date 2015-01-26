@@ -105,7 +105,7 @@ The [globbing][glob] pattern(s) specifed for excludes will be excluded from your
 
 Type: Object
 
-Default: { pattern: ['grunt-*'] }
+Default: { pattern: ['grunt-*', '@*/grunt-*'] }
 
 See the [load-grunt-tasks][lgt] documentation for configuration options.
 
