@@ -1,7 +1,7 @@
 {
   "name"        : "grunt-tasks",
   "description" : "Enables a more modular approach to configuring Grunt. Search a specified folder for files containing Grunt task definitions.",
-  "version"     : "0.1.3",
+  "version"     : "0.1.4",
 
   "author": {
     "name": "Marcus Ellis",
