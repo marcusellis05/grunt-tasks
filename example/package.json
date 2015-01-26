@@ -17,7 +17,7 @@
     , "grunt-contrib-less"        : "~0.9.0"
     , "grunt-contrib-uglify"      : "~0.3.0"
     , "grunt-contrib-watch"       : "~0.5.0"
-    , "grunt-tasks"               : "http://crt-dev-linux.devid.local:9009/install/grunt-tasks"
+    , "grunt-tasks"               : "*"
   }
 
 }

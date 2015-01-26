@@ -1,7 +1,7 @@
 "use strict";
 
 var fs = require('fs')
-  , jshintrc = JSON.parse(fs.readFileSync('.jshintrc', 'utf8'))
+  , jshintrc = JSON.parse(fs.readFileSync('.jshintrc', 'utf8'));
 
 module.exports = {
 
