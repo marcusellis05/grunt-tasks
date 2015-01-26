@@ -23,11 +23,12 @@ Install with npm:
 
 First, let's assume we have a file structure that looks like this:
 
-  * grunt-stuff/
+  * grunt/
     * config.js
-    * dev.js
-    * scripts.js
-    * styles.js
+    * tasks/
+      * dev.js
+      * scripts.js
+      * styles.js
   * lib/
   * public/
   * gruntfile.js
@@ -40,8 +41,8 @@ Now, our Gruntfile should be fairly simple. We require in 'grunt-tasks' and then
 
     module.exports = function(grunt) {
       gruntTasks(grunt, {
-          tasks: 'grunt-stuff/*.js'
-        , config: 'grunt-stuff/config.js'
+          tasks: 'grunt/tasks/*.js'
+        , config: 'grunt/config.js'
         , aliases: {
               'js'       : ['concat:scripts', 'concat:cruxjs', 'uglify']
             , 'css'      : ['less', 'concat:styles', 'cssmin']
@@ -68,7 +69,7 @@ Your config option (whether it's an object literal or a filepath) will be loaded
 
 Type: String | Array
 
-Default: 'grunt-tasks/*.js' 
+Default: 'grunt/tasks/*.js' 
 
 The 'tasks' option should be a [globbing][glob] pattern or a list of globbing patterns that map to your list of task definition modules.
 

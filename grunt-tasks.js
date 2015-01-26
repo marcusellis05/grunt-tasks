@@ -99,7 +99,7 @@ module.exports = function(grunt, opts){
     , glob = []
     , defaults = {
           config: {}
-        , tasks: ['grunt-tasks/*.js']
+        , tasks: ['grunt/tasks/*.js']
         , exclude: []
         , aliases: {}
         , lgtOptions: {}
