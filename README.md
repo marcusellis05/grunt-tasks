@@ -112,3 +112,8 @@ See the [load-grunt-tasks][lgt] documentation for configuration options.
 
 [lgt]: https://www.npmjs.org/package/load-grunt-tasks
 [glob]: https://www.npmjs.org/package/globule
+
+
+## License
+
+Copyright (c) 2014 Marcus Ellis. See the LICENSE file for license rights and limitations (MIT).
