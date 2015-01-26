@@ -2,7 +2,8 @@
 
 var globule = require('globule')
   , path = require('path')
-  , _ = require('lodash');
+  , assign = require('lodash.assign')
+  , forOwn = require('lodash.forown');
 
 
 
@@ -54,11 +55,11 @@ var configureTasks = function(config, glob){
     var filepath = path.join(process.cwd(), file)
       , defs = require(filepath);
 
-    _.forOwn(defs, function(def, key){
+    forOwn(defs, function(def, key){
         if (config[key] === undefined){
           config[key] = def;
         } else {
-          _.forOwn(def, function(val, k){
+          forOwn(def, function(val, k){
             config[key][k] = val;
           });
         }
@@ -93,7 +94,7 @@ var registerAliases = function(grunt, aliases){
     aliases = require(aliases);
   }
 
-  _.forOwn(aliases, function(value, key){
+  forOwn(aliases, function(value, key){
     grunt.registerTask(key, value);
   });
 };
@@ -111,7 +112,7 @@ module.exports = function(grunt, opts){
         , lgtOptions: {}
       };
 
-  options = _.assign({}, defaults, opts);
+  options = assign({}, defaults, opts);
 
   glob = createGlob(options);
 

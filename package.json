@@ -27,9 +27,10 @@
   ],
   "main": "grunt-tasks",
   "dependencies": {
-    "lodash": "2.4.*",
     "globule": "^0.2.0",
     "load-grunt-tasks": "^3.0.0",
+    "lodash.assign": "^3.0.0",
+    "lodash.forown": "^3.0.0",
     "time-grunt": "^1.0.0"
   },
   "devDependencies": {
